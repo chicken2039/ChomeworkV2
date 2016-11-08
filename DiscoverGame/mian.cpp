@@ -21,19 +21,21 @@ Discover *e_NowIs;
 Discover *i_temp;
 Discover *e_temp;
 
-int i_armor=30;
+int i_armor=30;//생명력
 int e_armor=30;
 
 
 
-void initLinkedList()
+void initLinkedList()//링크드리스트 초기화
 {
+	//1p
 	i_head = (Discover*)malloc(sizeof(Discover));
 	i_tail = (Discover*)malloc(sizeof(Discover));
 	i_head->next = i_tail;
 	i_head->before = NULL;
 	i_tail->next = NULL;
 	i_tail->before = i_head;
+	//2p
 	e_head = (Discover*)malloc(sizeof(Discover));
 	e_tail = (Discover*)malloc(sizeof(Discover));
 	e_head->next = e_tail;
@@ -42,13 +44,13 @@ void initLinkedList()
 	e_tail->before = e_head;
 }
 
-void i_InsertDiscover()
+void i_InsertDiscover()//Discover 생성
 {
 	Discover *p = (Discover*)malloc(sizeof(Discover));
 	Discover *s = i_head;
 	for (int i = 0; i < 3; i++)
 	{
-		p->select[i] = rand() % 6;
+		p->select[i] = rand() % 6;//발견할 것들을 무작위 넣기
 	}
 	while (s->next != i_tail)
 	{
@@ -62,13 +64,13 @@ void i_InsertDiscover()
 
 	
 }
-void e_InsertDiscover() 
+void e_InsertDiscover()//Discover 생성 
 {
 	Discover *k = (Discover*)malloc(sizeof(Discover));
 	Discover *t = e_head;
 	for (int asd = 0; asd < 3; asd++)
 	{
-		k->select[asd] = rand() % 6;
+		k->select[asd] = rand() % 6;	//발견할 것들을 무작위 넣기
 	}
 	while (t->next != e_tail)
 	{
@@ -124,7 +126,7 @@ Discover * i_TurnSelect(Discover *now)
 	
 	system("cls");
 	return p;
-}		//
+}
 //아군 선택
 Discover * e_TurnSelect(Discover *now)
 {
@@ -177,9 +179,9 @@ Discover * e_TurnSelect(Discover *now)
 
 int main()
 {
-	initLinkedList();
-	char checkStart;
-	i_NowIs = i_head;
+	initLinkedList();//링크드리스트 생성
+	char checkStart;//시작할때 질의 응답
+	i_NowIs = i_head;//각 유저의 진행 위치
 	e_NowIs = e_head;
 	for (int i = 0; i < 300; i++)
 	{
@@ -188,6 +190,7 @@ int main()
 		i_InsertDiscover();
 		e_InsertDiscover();
 	}
+	//리스트 만들기 
 	srand((unsigned int)time(NULL));
 
 	printf("게임 시작(Y:실행 N:종료):");
@@ -209,15 +212,15 @@ int main()
 		if (turn % 2 == 0) 
 		{
 			i_temp = i_NowIs;
-			i_NowIs=i_TurnSelect(i_temp);
+			i_NowIs=i_TurnSelect(i_temp);//1p턴
 		}
 		else 
 		{
 			e_temp = e_NowIs;
-			e_NowIs = e_TurnSelect(e_temp);
+			e_NowIs = e_TurnSelect(e_temp);//2p턴
 		}
 		if (i_armor <= 0) {
-			printf("2p의 승리!");
+			printf("2p의 승리!");//승리
 			break;
 		}
 		if (e_armor <= 0) {
